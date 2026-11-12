@@ -1,47 +1,155 @@
 @import "tailwindcss";
 
-:root {
-  /* Core Palette - Updated to match landing page (Blue Theme) */
-  --color-background: #FFFFFF;
-  --color-surface: #FFFFFF;
-  --color-text: #111827;
-  --color-text-muted: #475569;
-  --color-primary: #1D5CFF;
-  --color-primary-hover: #164BDB;
-  --color-primary-fg: #FFFFFF;
-  --color-selected: #EFF6FF;
-  --color-border: #E2E8F0;
-  --color-control-border: #CBD5E1;
-  --color-warning: #8A4B08;
-  --color-warning-surface: #FFF3DC;
-  --color-danger: #B42318;
-  --color-danger-surface: #FFF0EE;
+@theme {
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
 }
 
 @theme inline {
-  /* Semantic Colors */
-  --color-bg: var(--color-background);
-  --color-surface: var(--color-surface);
-  --color-main: var(--color-text);
-  --color-muted: var(--color-text-muted);
-  --color-primary: var(--color-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-primary-fg: var(--color-primary-fg);
-  --color-selected: var(--color-selected);
-  --color-border: var(--color-border);
-  --color-control-border: var(--color-control-border);
-  --color-warning: var(--color-warning);
-  --color-warning-bg: var(--color-warning-surface);
-  --color-danger: var(--color-danger);
-  --color-danger-bg: var(--color-danger-surface);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Typography */
-  --font-sans: system-ui, -apple-system, sans-serif;
+  /* Semantic backward-compatibility aliases */
+  --color-bg: var(--background);
+  --color-surface: var(--card);
+  --color-main: var(--foreground);
+  --color-selected: var(--accent);
+  --color-control-border: var(--input);
+  --color-warning: oklch(0.65 0.18 55);
+  --color-warning-bg: oklch(0.96 0.04 65);
+  --color-danger: var(--destructive);
+  --color-danger-bg: oklch(0.96 0.04 25);
 }
 
-body {
-  background: var(--color-background);
-  color: var(--color-text);
-  font-family: var(--font-sans);
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.988 0.003 250);
+  --foreground: oklch(0.2 0.015 258);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.015 258);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.015 258);
+  --primary: oklch(0.47 0.088 252);
+  --primary-foreground: oklch(0.988 0.003 250);
+  --secondary: oklch(0.957 0.007 250);
+  --secondary-foreground: oklch(0.2 0.015 258);
+  --muted: oklch(0.957 0.007 250);
+  --muted-foreground: oklch(0.51 0.022 253);
+  --accent: oklch(0.945 0.02 250);
+  --accent-foreground: oklch(0.35 0.06 252);
+  --destructive: oklch(0.577 0.215 27.325);
+  --destructive-foreground: oklch(0.988 0.003 250);
+  --border: oklch(0.925 0.008 250);
+  --input: oklch(0.925 0.008 250);
+  --ring: oklch(0.47 0.088 252);
+  --sidebar: oklch(0.972 0.006 250);
+  --sidebar-foreground: oklch(0.2 0.015 258);
+  --sidebar-primary: oklch(0.47 0.088 252);
+  --sidebar-primary-foreground: oklch(0.988 0.003 250);
+  --sidebar-accent: oklch(0.935 0.014 250);
+  --sidebar-accent-foreground: oklch(0.2 0.015 258);
+  --sidebar-border: oklch(0.915 0.009 250);
+  --sidebar-ring: oklch(0.47 0.088 252);
 }
 
+.dark {
+  --background: oklch(0.16 0.014 258);
+  --foreground: oklch(0.96 0.004 250);
+  --card: oklch(0.205 0.016 258);
+  --card-foreground: oklch(0.96 0.004 250);
+  --popover: oklch(0.205 0.016 258);
+  --popover-foreground: oklch(0.96 0.004 250);
+  --primary: oklch(0.68 0.09 252);
+  --primary-foreground: oklch(0.16 0.03 258);
+  --secondary: oklch(0.25 0.014 258);
+  --secondary-foreground: oklch(0.96 0.004 250);
+  --muted: oklch(0.25 0.014 258);
+  --muted-foreground: oklch(0.68 0.015 253);
+  --accent: oklch(0.27 0.035 252);
+  --accent-foreground: oklch(0.9 0.03 250);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.96 0.004 250);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.68 0.09 252);
+  --sidebar: oklch(0.185 0.016 258);
+  --sidebar-foreground: oklch(0.96 0.004 250);
+  --sidebar-primary: oklch(0.68 0.09 252);
+  --sidebar-primary-foreground: oklch(0.16 0.03 258);
+  --sidebar-accent: oklch(0.24 0.02 258);
+  --sidebar-accent-foreground: oklch(0.96 0.004 250);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.68 0.09 252);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  letter-spacing: -0.01em;
+}
+.wordmark .mark {
+  color: var(--color-primary);
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.feature-number {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 1;
+  color: var(--color-primary);
+  opacity: 0.35;
+}

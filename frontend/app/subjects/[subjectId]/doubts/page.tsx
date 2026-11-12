@@ -20,8 +20,9 @@ import {
   AlertCircle,
   HelpCircle,
 } from "lucide-react";
+import { StudyLayout } from "@/components/study-layout";
 
-export default function DoubtsPage() {
+function DoubtsContent() {
   const params = useParams<{ subjectId: string }>();
   const subjectId = params.subjectId;
 
@@ -397,5 +398,13 @@ export default function DoubtsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function DoubtsPage() {
+  return (
+    <StudyLayout>
+      <DoubtsContent />
+    </StudyLayout>
   );
 }

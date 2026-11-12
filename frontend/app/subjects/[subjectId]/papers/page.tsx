@@ -26,8 +26,9 @@ import {
   Layers,
   Filter,
 } from "lucide-react";
+import { StudyLayout } from "@/components/study-layout";
 
-export default function PapersPage() {
+function PapersContent() {
   const params = useParams<{ subjectId: string }>();
   const subjectId = params.subjectId;
 
@@ -548,5 +549,13 @@ export default function PapersPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function PapersPage() {
+  return (
+    <StudyLayout>
+      <PapersContent />
+    </StudyLayout>
   );
 }
