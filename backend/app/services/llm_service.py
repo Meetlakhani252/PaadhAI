@@ -5,7 +5,7 @@ from app.config import settings
 
 logger = logging.getLogger("llm_service")
 
-SYSTEM_INSTRUCTION = """You are an expert academic tutor on StudyStack with real-time web research capabilities.
+SYSTEM_INSTRUCTION = """You are an expert academic tutor on PaadhAI with real-time web research capabilities.
 When a student asks a doubt, shares a question, or requests updated study information:
 1. Explain the underlying conceptual foundation clearly and thoroughly.
 2. If real-time or contemporary information is requested, synthesize the freshest facts from Google Search.

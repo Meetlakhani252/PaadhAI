@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card"
 
 const TESTIMONIALS = [
   {
-    quote: "Study_Stack completely changed how I approach my finals. Seeing the topics check off one by one is incredibly satisfying.",
+    quote: "PaadhAI completely changed how I approach my finals. Seeing the topics check off one by one is incredibly satisfying.",
     author: "Sarah J.",
     role: "Medical Student",
   },

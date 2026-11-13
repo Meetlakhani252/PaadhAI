@@ -73,13 +73,13 @@ export function AppSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild size="lg" tooltip="StudyStack">
+            <SidebarMenuButton asChild size="lg" tooltip="PaadhAI">
               <Link href="/dashboard">
                 <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                   <Layers className="size-4" />
                 </span>
                 <span className="wordmark text-lg leading-none">
-                  Study<span className="mark">Stack</span>
+                  Paadh<span className="mark">AI</span>
                 </span>
               </Link>
             </SidebarMenuButton>
@@ -130,7 +130,7 @@ export function AppSidebar() {
                       {displayName}
                     </span>
                     <span className="truncate text-xs text-muted-foreground">
-                      StudyStack Account
+                      PaadhAI Account
                     </span>
                   </span>
                 </SidebarMenuButton>

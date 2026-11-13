@@ -28,7 +28,7 @@ const FEATURES = [
     number: "03",
     icon: FileSearch,
     title: "Paper analyzer",
-    body: "Upload previous-year papers as PDFs. StudyStack splits them into questions, matches each one to your syllabus topics, and ranks what keeps getting asked — so you know what to prioritize.",
+    body: "Upload previous-year papers as PDFs. PaadhAI splits them into questions, matches each one to your syllabus topics, and ranks what keeps getting asked — so you know what to prioritize.",
   },
 ] as const;
 
@@ -112,7 +112,7 @@ export default function LandingPage() {
               <span className="italic text-primary">Beat the paper.</span>
             </h1>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">
-              StudyStack is a subject-agnostic workspace for college students:
+              PaadhAI is a subject-agnostic workspace for college students:
               track your syllabus topic by topic, resolve doubts with AI, and see
               which topics your exams keep repeating.
             </p>

@@ -14,7 +14,7 @@ const TITLES: Record<string, string> = {
 
 export function DashboardTopbar() {
   const pathname = usePathname();
-  const title = TITLES[pathname] ?? "StudyStack";
+  const title = TITLES[pathname] ?? "PaadhAI";
 
   return (
     <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center gap-3 border-b border-border/70 bg-background/85 px-4 backdrop-blur-md md:px-8">

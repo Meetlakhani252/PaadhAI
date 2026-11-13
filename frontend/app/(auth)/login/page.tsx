@@ -21,7 +21,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <div className="mb-6 text-center">
             <Link href="/" className="wordmark text-2xl inline-flex items-baseline gap-1.5">
-              Study<span className="mark">Stack</span>
+              Paadh<span className="mark">AI</span>
             </Link>
             <h1 className="mt-6 font-display text-3xl tracking-tight text-foreground">
               Welcome back
@@ -48,7 +48,7 @@ export default function LoginPage() {
       </main>
 
       <footer className="border-t border-border/70 px-6 py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} StudyStack
+        © {new Date().getFullYear()} PaadhAI
       </footer>
     </div>
   );

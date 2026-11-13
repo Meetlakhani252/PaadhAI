@@ -8,10 +8,10 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 )
-logger = logging.getLogger("studystack-backend")
+logger = logging.getLogger("paadhai-backend")
 
 app = FastAPI(
-    title="StudyStack API",
+    title="PaadhAI API",
     description="Backend API for AI doubt resolution and past paper analysis",
     version="1.0.0"
 )
@@ -34,7 +34,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "studystack-api", "version": "1.0.0"}
+    return {"status": "healthy", "service": "paadhai-api", "version": "1.0.0"}
 
 app.include_router(doubt_solver.router, prefix="/doubts", tags=["Doubts"])
 app.include_router(paper_analyzer.router, prefix="/papers", tags=["Papers"])

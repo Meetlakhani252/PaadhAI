@@ -10,8 +10,8 @@ export function Footer({ className }: { className?: string }) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-1 flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-gray-900">
-              <div className="bg-blue-600 text-white px-1.5 py-0.5 rounded text-sm">S</div>
-              <span>Study_Stack</span>
+              <div className="bg-blue-600 text-white px-1.5 py-0.5 rounded text-sm">P</div>
+              <span>PaadhAI</span>
             </Link>
             <p className="text-sm text-gray-600 leading-relaxed">
               The modern standard for study progress tracking. Built for students, by students.
@@ -42,7 +42,7 @@ export function Footer({ className }: { className?: string }) {
           </div>
         </div>
         <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-          <p>© {new Date().getFullYear()} Study_Stack. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} PaadhAI. All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="#" className="hover:text-gray-900 transition-colors">Twitter</Link>
             <Link href="#" className="hover:text-gray-900 transition-colors">LinkedIn</Link>

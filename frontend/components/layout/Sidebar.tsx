@@ -55,7 +55,7 @@ export function Sidebar({ activeRoute }: SidebarProps) {
       )}>
         <div className="p-6 flex items-center gap-3 border-b border-border">
           <div className="bg-primary text-primary-fg p-1.5 rounded-md font-bold text-lg">S</div>
-          <span className="font-bold text-xl tracking-tight text-main">StudyStack</span>
+          <span className="font-bold text-xl tracking-tight text-main">PaadhAI</span>
           <button
             onClick={() => setIsOpen(false)}
             className="lg:hidden ml-auto p-1 text-muted hover:text-main cursor-pointer"

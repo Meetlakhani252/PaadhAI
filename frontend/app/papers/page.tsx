@@ -234,7 +234,7 @@ function PapersContent() {
 
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(20);
-      pdf.text("StudyStack", margin, y);
+      pdf.text("PaadhAI", margin, y);
       y += 12;
       pdf.setFontSize(15);
       pdf.text(`Predicted Exam Questions: ${title}`, margin, y);

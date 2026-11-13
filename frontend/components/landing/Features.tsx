@@ -17,7 +17,7 @@ const FEATURES = [
   },
   {
     title: "Exam Date Countdown",
-    description: "Set your target dates and let Study_Stack keep the pressure on. Know exactly how many days are left.",
+    description: "Set your target dates and let PaadhAI keep the pressure on. Know exactly how many days are left.",
     icon: <CalendarDays className="size-6 text-blue-600" />,
   },
   {

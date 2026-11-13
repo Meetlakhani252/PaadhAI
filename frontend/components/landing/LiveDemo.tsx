@@ -17,7 +17,7 @@ export function LiveDemo({ className }: { className?: string }) {
               Try it before you sign up
             </h2>
             <p className="text-blue-100 text-lg mb-10 max-w-xl mx-auto">
-              Experience the flow of Study_Stack with sample data. No account, no emails, just a quick look at how it works.
+              Experience the flow of PaadhAI with sample data. No account, no emails, just a quick look at how it works.
             </p>
             <Button
               size="lg"

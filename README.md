@@ -1,4 +1,4 @@
-# 📚 StudyStack
+# 📚 PaadhAI
 
 > **Know what to study, get unstuck, beat the paper.**  
 > A subject-agnostic AI-powered learning platform designed for structured syllabus tracking, instant multi-turn doubt resolution, study material management, and exam paper pattern analysis.
@@ -39,7 +39,7 @@
 ## 📁 Repository Structure
 
 ```text
-StudyStack/
+PaadhAI/
 ├── frontend/                  # Next.js App Router frontend
 │   ├── app/                   # Pages & routing ((auth), dashboard, subjects, doubts, etc.)
 │   ├── components/            # Reusable UI & feature components
@@ -171,7 +171,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
    - `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard`
    - `NEXT_PUBLIC_API_URL=https://your-backend-url.railway.app`
    - `DATABASE_URL=...`
-4. Deploy.
+4. Custom Domain: Add `paadhai.online` in Vercel **Settings → Domains**.
 
 ### Backend (Railway / Render / Fly.io)
 1. Set the root directory to `backend`.
@@ -182,6 +182,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 3. Set the environment variables:
    - `GEMINI_API_KEY`
    - `DATABASE_URL`
+   - `ALLOWED_ORIGINS=https://paadhai.online,https://www.paadhai.online`
 
 ---
 

@@ -5,7 +5,7 @@ import { ProfileProvider } from "@/lib/profile";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "StudyStack — Know what to study, get unstuck, beat the paper",
+  title: "PaadhAI — Know what to study, get unstuck, beat the paper",
   description: "Subject-agnostic learning platform for syllabus tracking, AI doubt resolution, and paper analysis.",
 };
 

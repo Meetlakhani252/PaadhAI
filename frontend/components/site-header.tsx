@@ -10,7 +10,7 @@ export function SiteHeader({ variant = "landing" }: { variant?: "landing" | "pla
     <header className="sticky top-0 z-40 w-full border-b border-border/70 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="wordmark inline-flex items-baseline gap-1.5">
-          Study<span className="mark">Stack</span>
+          Paadh<span className="mark">AI</span>
         </Link>
 
         {variant === "landing" && (

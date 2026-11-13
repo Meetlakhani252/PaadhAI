@@ -1,4 +1,4 @@
-# StudyStack API Contracts
+# PaadhAI API Contracts
 
 ## Doubt Solver
 - **Endpoint**: `POST /doubts/solve`

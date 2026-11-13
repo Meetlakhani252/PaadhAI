@@ -40,8 +40,8 @@ export function Navbar({ className }: { className?: string }) {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-gray-900">
-            <div className="bg-blue-600 text-white px-1.5 py-0.5 rounded text-sm">S</div>
-            <span>Study_Stack</span>
+            <div className="bg-blue-600 text-white px-1.5 py-0.5 rounded text-sm">P</div>
+            <span>PaadhAI</span>
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
             {navLinks.map(link => (

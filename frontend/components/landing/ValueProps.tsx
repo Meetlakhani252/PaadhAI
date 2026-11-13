@@ -31,7 +31,7 @@ export function ValueProps({ className }: { className?: string }) {
     <section id="how-it-works" className={cn("py-24 bg-gray-50", className)}>
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">Why Study_Stack?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">Why PaadhAI?</h2>
           <p className="text-gray-600 text-lg">
             We&apos;ve stripped away the fluff to give you a tool that actually helps you study smarter, not longer.
           </p>

@@ -1,6 +1,6 @@
-# 📋 StudyStack — Project Task Tracker
+# 📋 PaadhAI — Project Task Tracker
 
-> This document tracks every task required to complete the StudyStack project from start to finish.
+> This document tracks every task required to complete the PaadhAI project from start to finish.
 > Update the status of each task after completion by marking it ✅.
 >
 > **Last Updated:** 2026-11-02 · Phase 8 (Past Paper Analyzer) complete

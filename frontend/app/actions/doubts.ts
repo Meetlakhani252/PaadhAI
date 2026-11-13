@@ -117,7 +117,7 @@ export async function createAndSolveDoubt(data: {
 
   parts.push({ text: userQuery });
 
-  const systemInstruction = `You are an expert college tutor and academic researcher on StudyStack.
+  const systemInstruction = `You are an expert college tutor and academic researcher on PaadhAI.
 When solving this student's doubt:
 1. Explain the underlying conceptual foundation clearly and thoroughly.
 2. If the user asks about contemporary topics, latest tools, documentation, or current exam trends, synthesize verified real-time information from Google Search.
