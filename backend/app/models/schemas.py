@@ -1,15 +1,22 @@
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 
+class GroundingSource(BaseModel):
+    title: str
+    url: str
+
 class DoubtRequest(BaseModel):
     subject_id: str
     question_text: str
     image_base64: Optional[str] = None
     mime_type: Optional[str] = "image/jpeg"
+    enable_web_search: Optional[bool] = True
 
 class DoubtResponse(BaseModel):
     answer_text: str
-    sources: List[str] = []
+    sources: List[GroundingSource] = []
+    web_search_queries: List[str] = []
+    web_search_used: bool = False
 
 class PaperRequest(BaseModel):
     subject_id: str
