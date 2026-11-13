@@ -34,6 +34,7 @@ export default function LoginPage() {
           <div className="flex justify-center">
             <SignIn
               routing="hash"
+              signUpUrl="/signup"
               fallbackRedirectUrl="/dashboard"
               appearance={{
                 elements: {
