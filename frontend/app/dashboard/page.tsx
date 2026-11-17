@@ -54,7 +54,7 @@ function greeting(): string {
   return "Good evening";
 }
 
-export function BentoDashboardContent() {
+function BentoDashboardContent() {
   const router = useRouter();
   const { profile } = useProfile();
   const { subjects, cycleTopicStatus, toggleTopicWeak } = useSubjects();
