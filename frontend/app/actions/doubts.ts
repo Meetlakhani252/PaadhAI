@@ -127,47 +127,67 @@ When solving this student's doubt:
 Format equations, lists, and code clearly using clean markdown.`;
 
   const useSearch = data.enableWebSearch !== false;
-  const payload: any = {
-    system_instruction: {
-      parts: [{ text: systemInstruction }],
-    },
-    contents: [{ parts }],
-  };
+  const candidateModels = [
+    process.env.GEMINI_MODEL || "gemini-3.8-flash",
+    "gemini-3.8-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-flash-lite-latest",
+  ].filter((m, i, arr) => arr.indexOf(m) === i && m !== "gemini-2.5-flash");
 
-  if (useSearch) {
-    payload.tools = [{ google_search: {} }];
-  }
+  let result: any = null;
+  let lastErrorMsg = "";
 
-  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-  let response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }
-  );
+  for (const model of candidateModels) {
+    // Attempt with search first if requested, and automatically fallback without search
+    // if search grounding triggers 429 quota exhaustion or rejection
+    const searchOptions = useSearch ? [true, false] : [false];
 
-  // Fallback if model or tool triggers rejection
-  if (!response.ok && useSearch) {
-    delete payload.tools;
-    response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+    for (const searchEnabled of searchOptions) {
+      const payload: any = {
+        system_instruction: {
+          parts: [{ text: systemInstruction }],
+        },
+        contents: [{ parts }],
+      };
+
+      if (searchEnabled) {
+        payload.tools = [{ google_search: {} }];
       }
-    );
+
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }
+        );
+
+        if (response.ok) {
+          result = await response.json();
+          break;
+        } else {
+          const errText = await response.text();
+          lastErrorMsg = `Model ${model} (search: ${searchEnabled}) failed with status ${response.status}: ${errText}`;
+          console.warn(lastErrorMsg);
+        }
+      } catch (networkErr: any) {
+        lastErrorMsg = networkErr?.message || "Network request failed";
+        console.warn(`Request failed for model ${model}:`, lastErrorMsg);
+      }
+    }
+
+    if (result) {
+      break;
+    }
   }
 
-  if (!response.ok) {
-    const errText = await response.text();
-    console.error("Gemini API error:", errText);
-    throw new Error("Failed to get solution from AI. Please try again.");
+  if (!result) {
+    console.error("All Gemini model attempts failed:", lastErrorMsg);
+    throw new Error("AI Tutor is currently busy. Please try again in a few moments.");
   }
-
-  const result = await response.json();
   const candidate = result.candidates?.[0];
   const answerText =
     candidate?.content?.parts

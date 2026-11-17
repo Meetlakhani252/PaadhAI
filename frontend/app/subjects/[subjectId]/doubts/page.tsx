@@ -123,7 +123,12 @@ function DoubtsContent() {
       setSelectedImage(null);
       setIsModalOpen(false);
     } catch (err: any) {
-      setError(err.message || "Failed to solve doubt. Please try again.");
+      const rawMsg = err?.message || "";
+      if (rawMsg.includes("Minified React error") || rawMsg.includes("react.dev/errors")) {
+        setError("AI Tutor service encountered a temporary error. Please try again.");
+      } else {
+        setError(rawMsg || "Failed to solve doubt. Please try again.");
+      }
     } finally {
       setSubmitting(false);
     }

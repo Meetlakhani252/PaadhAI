@@ -96,7 +96,13 @@ export default function LandingPage() {
   const ctaLink = isSignedIn ? "/dashboard" : "/login";
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div
+      className="relative flex min-h-screen flex-col overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
+      style={{
+        backgroundImage: "url('/Img_2.jpg')",
+      }}
+    >
+      <div className="fixed inset-0 bg-background/85 dark:bg-background/92 backdrop-blur-[1px] -z-10" />
       <SiteHeader />
 
       {/* Hero */}
