@@ -9,7 +9,7 @@ export default function LoginPage() {
     <div
       className="relative flex min-h-screen flex-col overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: "url('/Background.jpg')",
+        backgroundImage: "url('/Img_3.jpg')",
       }}
     >
       {/* Contrast Overlay so text and card stand out */}
