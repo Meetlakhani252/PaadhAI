@@ -99,7 +99,7 @@ export default function LandingPage() {
     <div
       className="relative flex min-h-screen flex-col overflow-hidden bg-cover bg-center bg-no-repeat bg-fixed"
       style={{
-        backgroundImage: "url('/Img_2.jpg')",
+        backgroundImage: "url('/Img_5.jpg')",
       }}
     >
       <div className="fixed inset-0 bg-background/85 dark:bg-background/92 backdrop-blur-[1px] -z-10" />
