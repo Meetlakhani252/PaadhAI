@@ -12,6 +12,7 @@ import {
   Layers,
   LogOut,
   MessageSquareText,
+  Sparkles,
   UserRound,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -44,6 +45,7 @@ const NAV = [
   { title: "Home", to: "/dashboard", icon: Home },
   { title: "Subjects", to: "/subjects", icon: BookOpenText },
   { title: "Materials", to: "/materials", icon: FolderGit2 },
+  { title: "Tutor", to: "/tutor", icon: Sparkles },
   { title: "Doubts", to: "/doubts", icon: MessageSquareText },
   { title: "Papers", to: "/papers", icon: FileSearch },
 ] as const;

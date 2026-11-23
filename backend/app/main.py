@@ -2,7 +2,8 @@ import logging
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from app.routers import doubt_solver, paper_analyzer
+from app.routers import doubt_solver, paper_analyzer, tutor
+from app.database import close_db_pool
 
 logging.basicConfig(
     level=logging.INFO,
@@ -38,6 +39,11 @@ async def health_check():
 
 app.include_router(doubt_solver.router, prefix="/doubts", tags=["Doubts"])
 app.include_router(paper_analyzer.router, prefix="/papers", tags=["Papers"])
+app.include_router(tutor.router, prefix="/tutor", tags=["Tutor"])
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    await close_db_pool()
 
 if __name__ == "__main__":
     import uvicorn

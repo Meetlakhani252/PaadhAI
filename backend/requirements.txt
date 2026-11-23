@@ -6,3 +6,5 @@ pytesseract
 python-dotenv
 pydantic
 httpx
+asyncpg
+python-multipart
