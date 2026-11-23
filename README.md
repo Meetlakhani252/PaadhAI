@@ -194,8 +194,3 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `POST` | `/papers/analyze` | Upload and analyze previous years' question papers |
 | `GET` | `/health` | Server health check endpoint |
 
----
-
-## 🛡️ License
-
-This project is licensed under the [MIT License](LICENSE).
