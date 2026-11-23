@@ -174,3 +174,111 @@ async def grade_check_question(
         topic=payload.topic.strip() if payload.topic else None
     )
     return result
+
+@router.get("/history")
+async def get_tutor_history(user_id: str = Depends(get_authenticated_user_id)):
+    """Returns the user's last 50 messages from tutor_messages, oldest first."""
+    pool = await get_db_pool()
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(
+            """
+            SELECT id, role, content, source_chunk_ids, created_at
+            FROM (
+                SELECT id, role, content, source_chunk_ids, created_at
+                FROM tutor_messages
+                WHERE user_id = $1
+                ORDER BY created_at DESC
+                LIMIT 50
+            ) sub
+            ORDER BY created_at ASC
+            """,
+            user_id
+        )
+    return [
+        {
+            "id": r["id"],
+            "role": r["role"],
+            "content": r["content"],
+            "source_chunk_ids": r["source_chunk_ids"] or [],
+            "created_at": r["created_at"].isoformat() if r["created_at"] else None
+        }
+        for r in rows
+    ]
+
+@router.delete("/history")
+async def clear_tutor_history(user_id: str = Depends(get_authenticated_user_id)):
+    """Clears the user's chat history."""
+    pool = await get_db_pool()
+    async with pool.acquire() as conn:
+        await conn.execute("DELETE FROM tutor_messages WHERE user_id = $1", user_id)
+    return {"status": "cleared", "message": "Chat history cleared successfully"}
+
+@router.get("/documents")
+async def get_user_documents(user_id: str = Depends(get_authenticated_user_id)):
+    """Returns the user's uploaded documents with chunk count."""
+    pool = await get_db_pool()
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(
+            """
+            SELECT 
+                d.id,
+                d.title,
+                d.created_at,
+                COUNT(c.id)::int AS chunk_count
+            FROM documents d
+            LEFT JOIN chunks c ON c.document_id = d.id
+            WHERE d.user_id = $1
+            GROUP BY d.id, d.title, d.created_at
+            ORDER BY d.created_at DESC
+            """,
+            user_id
+        )
+    return [
+        {
+            "id": r["id"],
+            "title": r["title"],
+            "created_at": r["created_at"].isoformat() if r["created_at"] else None,
+            "chunk_count": r["chunk_count"]
+        }
+        for r in rows
+    ]
+
+@router.delete("/documents/{document_id}")
+async def delete_user_document(document_id: int, user_id: str = Depends(get_authenticated_user_id)):
+    """Deletes a document and its cascaded chunks, only if it belongs to the user."""
+    pool = await get_db_pool()
+    async with pool.acquire() as conn:
+        deleted_id = await conn.fetchval(
+            "DELETE FROM documents WHERE id = $1 AND user_id = $2 RETURNING id",
+            document_id,
+            user_id
+        )
+    if not deleted_id:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found or unauthorized"
+        )
+    return {"status": "deleted", "document_id": document_id}
+
+@router.get("/progress")
+async def get_student_progress(user_id: str = Depends(get_authenticated_user_id)):
+    """Returns student_progress rows for the user, sorted by lowest mastery first."""
+    pool = await get_db_pool()
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(
+            """
+            SELECT topic, mastery_score, last_revised
+            FROM student_progress
+            WHERE user_id = $1
+            ORDER BY mastery_score ASC, last_revised DESC
+            """,
+            user_id
+        )
+    return [
+        {
+            "topic": r["topic"],
+            "mastery_score": r["mastery_score"],
+            "last_revised": r["last_revised"].isoformat() if r["last_revised"] else None
+        }
+        for r in rows
+    ]
