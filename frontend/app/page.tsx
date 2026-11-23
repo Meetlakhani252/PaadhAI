@@ -50,41 +50,41 @@ const STEPS = [
   },
 ] as const;
 
-function HeroMock() {
-  const subjects = [
-    { name: "Data Structures", meta: "12 topics · exam in 21 days", pct: 68 },
-    { name: "Thermodynamics", meta: "9 topics · exam in 34 days", pct: 41 },
-    { name: "Macroeconomics", meta: "15 topics · no exam date", pct: 12 },
+function HeroVisual() {
+  const steps = [
+    { label: "Add your subjects & topics", done: true },
+    { label: "Track each topic: Not Started → Done", done: true },
+    { label: "Ask AI doubts, get step-by-step answers", done: false },
+    { label: "Upload past papers → see what repeats", done: false },
   ] as const;
 
   return (
     <div className="w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-[0_24px_60px_-32px_oklch(0.47_0.088_252/0.35)]">
       <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-        Your semester
+        How it works
       </p>
-      <div className="mt-5 space-y-5">
-        {subjects.map((s) => (
-          <div key={s.name}>
-            <div className="flex items-baseline justify-between gap-3">
-              <p className="text-sm font-medium text-foreground">{s.name}</p>
-              <p className="text-xs text-muted-foreground">{s.pct}%</p>
-            </div>
-            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-              <div
-                className="h-full rounded-full bg-primary"
-                style={{ width: `${s.pct}%` }}
-              />
-            </div>
-            <p className="mt-1.5 text-xs text-muted-foreground">{s.meta}</p>
+      <div className="mt-5 space-y-3">
+        {steps.map((s, i) => (
+          <div key={i} className="flex items-center gap-3">
+            <span
+              className={`flex size-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                s.done
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-border text-muted-foreground"
+              }`}
+            >
+              {s.done ? "✓" : i + 1}
+            </span>
+            <p className={`text-sm ${s.done ? "text-foreground" : "text-muted-foreground"}`}>
+              {s.label}
+            </p>
           </div>
         ))}
       </div>
       <div className="mt-6 rounded-2xl bg-accent p-4">
-        <p className="text-xs font-medium text-accent-foreground">
-          Most repeated topic this year
-        </p>
-        <p className="mt-1 font-display text-lg leading-snug text-foreground">
-          Binary trees &amp; traversals — appeared in 3 of the last 4 papers
+        <p className="text-xs font-medium text-accent-foreground">Your progress, your data</p>
+        <p className="mt-1 text-sm leading-snug text-foreground">
+          Every number on your dashboard comes from your own subjects and study sessions — no sample data, ever.
         </p>
       </div>
     </div>
@@ -139,7 +139,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="flex justify-center md:justify-end">
-            <HeroMock />
+            <HeroVisual />
           </div>
         </div>
       </section>

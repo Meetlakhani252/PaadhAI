@@ -194,7 +194,7 @@ function MaterialsContent() {
             Study Materials
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Curated notes, video lectures, cheat sheets, and visualizers for your courses.
+            Save your own notes, video lectures, cheat sheets, and links — all in one place.
           </p>
         </div>
 
@@ -276,10 +276,14 @@ function MaterialsContent() {
         <div className="mt-8 rounded-3xl border border-dashed border-border bg-card p-12 text-center">
           <BookOpen className="mx-auto size-10 text-muted-foreground/60" />
           <h2 className="mt-3 font-display text-2xl text-foreground">
-            No materials found
+            {searchQuery || selectedSubject !== "all" || selectedType !== "all"
+              ? "No materials match your filters"
+              : "Your library is empty"}
           </h2>
           <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
-            Try adjusting your search query or subject filter, or add your own study link.
+            {searchQuery || selectedSubject !== "all" || selectedType !== "all"
+              ? "Try adjusting your search or filter to find what you saved."
+              : "Hit \"Add Material\" to save your first video, notes link, or cheat sheet — it lives here for good."}
           </p>
         </div>
       ) : (

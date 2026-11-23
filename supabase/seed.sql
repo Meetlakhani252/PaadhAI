@@ -1,2 +1,1 @@
--- Seed data for initial testing
-INSERT INTO users (email) VALUES ('student@example.com');
+-- No seed data. All users and study data are created at runtime by real users.
