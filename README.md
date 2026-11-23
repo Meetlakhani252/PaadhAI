@@ -1,22 +1,22 @@
-# 📚 PaadhAI
+#  PaadhAI
 
 > **Know what to study, get unstuck, beat the paper.**  
 > A subject-agnostic AI-powered learning platform designed for structured syllabus tracking, instant multi-turn doubt resolution, study material management, and exam paper pattern analysis.
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
-- **📖 Syllabus & Topic Tracking**: Hierarchical tracking of subjects, modules, and subtopics with completion status, difficulty ratings, and progress metrics.
-- **🤖 AI Doubt Solver**: Real-time context-aware doubt resolution powered by Google Gemini, complete with follow-up Q&A and code/formula formatting.
-- **📝 Exam Paper Analyzer**: Extract and analyze past exam question papers (PDF/images) with topic breakdown, frequency analysis, and weightage estimations.
-- **📁 Study Material Hub**: Store, organize, and quickly access notes, reference links, and documents per subject and module.
-- **🔒 Secure Authentication**: Multi-session authentication and user management powered by Clerk.
-- **🌓 Modern Responsive UI**: Crafted with Next.js App Router, Tailwind CSS v4, Radix UI primitives, and Sonner toast notifications.
+- ** Syllabus & Topic Tracking**: Hierarchical tracking of subjects, modules, and subtopics with completion status, difficulty ratings, and progress metrics.
+- ** AI Doubt Solver**: Real-time context-aware doubt resolution powered by Google Gemini, complete with follow-up Q&A and code/formula formatting.
+- ** Exam Paper Analyzer**: Extract and analyze past exam question papers (PDF/images) with topic breakdown, frequency analysis, and weightage estimations.
+- ** Study Material Hub**: Store, organize, and quickly access notes, reference links, and documents per subject and module.
+- ** Secure Authentication**: Multi-session authentication and user management powered by Clerk.
+- ** Modern Responsive UI**: Crafted with Next.js App Router, Tailwind CSS v4, Radix UI primitives, and Sonner toast notifications.
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+##  Architecture & Tech Stack
 
 ### Frontend
 - **Framework**: [Next.js](https://nextjs.org/) (App Router, React 19)
@@ -36,7 +36,7 @@
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```text
 PaadhAI/
@@ -60,7 +60,7 @@ PaadhAI/
 
 ---
 
-## 🚀 Getting Started Locally
+##  Getting Started Locally
 
 ### Prerequisites
 - **Node.js**: `v20+` and `npm` (or `pnpm` / `yarn`)
@@ -157,7 +157,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🌐 Deployment Guidelines
+##  Deployment Guidelines
 
 ### Frontend (Vercel)
 1. Push your repository to GitHub.
@@ -194,8 +194,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `POST` | `/papers/analyze` | Upload and analyze previous years' question papers |
 | `GET` | `/health` | Server health check endpoint |
 
----
 
-## 🛡️ License
-
-This project is licensed under the [MIT License](LICENSE).
