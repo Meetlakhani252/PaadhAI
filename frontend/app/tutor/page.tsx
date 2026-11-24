@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useAuth, useUser } from "@clerk/nextjs";
 import {
   Sparkles,
@@ -730,7 +732,13 @@ function TutorContent() {
                 >
                   {/* Message Body */}
                   <div className="whitespace-pre-wrap leading-relaxed">
-                    {msg.content}
+                    {msg.role === "assistant" ? (
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {msg.content}
+                      </ReactMarkdown>
+                    ) : (
+                      msg.content
+                    )}
                     {msg.isLoading && (
                       <span className="inline-flex items-center gap-1 ml-1 text-muted-foreground animate-pulse">
                         <span className="size-1.5 rounded-full bg-current" />

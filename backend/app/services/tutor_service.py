@@ -9,12 +9,40 @@ from app.database import get_db_pool
 
 logger = logging.getLogger("tutor_service")
 
-SYSTEM_PROMPT = (
-    "You are PaadhAI Tutor. Answer ONLY using the provided context chunks. "
-    "If the answer is not in the context, say 'This isn't in your study material' "
-    "and offer a general hint clearly labelled as general. Explain simply, then ask "
-    "exactly ONE short check question to test understanding. Never fabricate facts, formulas or citations."
+GENERATE_KEYWORDS = (
+    "question bank",
+    "questions",
+    "quiz",
+    "mcq",
+    "flashcards",
+    "summary",
+    "summarize",
+    "revision notes",
+    "practice",
 )
+
+ANSWER_SYSTEM_PROMPT = (
+    "You are PaadhAI Tutor. "
+    "Answer ONLY using the provided context chunks. "
+    "If the answer is not in the context, say 'This isn't in your study material' "
+    "and give a short hint labelled 'General hint'. "
+    "Ask exactly ONE short check question only after explaining a concept. "
+    "Never ask a check question after syllabus logistics "
+    "(hours, marks, weeks, which unit covers what). "
+    "Never invent facts, formulas or citations."
+)
+
+GENERATE_SYSTEM_PROMPT = (
+    "You are PaadhAI Tutor. Using the study material context below, generate exactly what the student "
+    "requests (question bank, quiz, summary, flashcards). Base every question on topics found in the context. "
+    "Do not refuse. If some units are missing from the context, generate for the units you can see and list "
+    "which units were not covered so the student can ask for them separately. Do not ask a check question."
+)
+
+
+def is_generate_mode(message: str) -> bool:
+    lowered = message.lower()
+    return any(keyword in lowered for keyword in GENERATE_KEYWORDS)
 
 async def save_tutor_messages(user_id: str, question: str, answer: str, source_chunk_ids: List[int]):
     """Saves both user query and tutor answer into tutor_messages table."""
@@ -57,8 +85,12 @@ async def stream_tutor_response(
         yield f"data: {json.dumps({'type': 'error', 'detail': 'Gemini API key is not configured.'})}\n\n"
         return
 
+    generate_mode = is_generate_mode(question)
+    retrieval_k = 15 if generate_mode else k
+    system_prompt = GENERATE_SYSTEM_PROMPT if generate_mode else ANSWER_SYSTEM_PROMPT
+
     # 1. Retrieve top-k chunks
-    chunks = await retrieve(user_id=user_id, question=question, k=k)
+    chunks = await retrieve(user_id=user_id, question=question, k=retrieval_k)
     source_chunk_ids = [c["chunk_id"] for c in chunks]
     sources = [
         {
@@ -73,28 +105,29 @@ async def stream_tutor_response(
     # Emit initial metadata with source chunk IDs
     yield f"data: {json.dumps({'type': 'metadata', 'source_chunk_ids': source_chunk_ids, 'sources': sources})}\n\n"
 
-    # Evaluate whether the student is answering the previous check question
-    try:
-        pool = await get_db_pool()
-        async with pool.acquire() as conn:
-            last_assistant_msg = await conn.fetchval(
-                """
-                SELECT content FROM tutor_messages 
-                WHERE user_id = $1 AND role = 'assistant' 
-                ORDER BY id DESC LIMIT 1
-                """,
-                user_id
-            )
-        if last_assistant_msg and ("?" in last_assistant_msg or "question" in last_assistant_msg.lower()):
-            eval_result = await grade_and_record_progress(
-                user_id=user_id,
-                question=last_assistant_msg,
-                answer=question,
-                topic=chunks[0]["document_title"].replace(".pdf", "") if chunks else None
-            )
-            yield f"data: {json.dumps({'type': 'progress', **eval_result})}\n\n"
-    except Exception as eval_err:
-        logger.warning(f"Check question evaluation skipped: {eval_err}")
+    # Evaluate whether the student is answering the previous check question (ANSWER mode only)
+    if not generate_mode:
+        try:
+            pool = await get_db_pool()
+            async with pool.acquire() as conn:
+                last_assistant_msg = await conn.fetchval(
+                    """
+                    SELECT content FROM tutor_messages 
+                    WHERE user_id = $1 AND role = 'assistant' 
+                    ORDER BY id DESC LIMIT 1
+                    """,
+                    user_id
+                )
+            if last_assistant_msg and ("?" in last_assistant_msg or "question" in last_assistant_msg.lower()):
+                eval_result = await grade_and_record_progress(
+                    user_id=user_id,
+                    question=last_assistant_msg,
+                    answer=question,
+                    topic=chunks[0]["document_title"].replace(".pdf", "") if chunks else None
+                )
+                yield f"data: {json.dumps({'type': 'progress', **eval_result})}\n\n"
+        except Exception as eval_err:
+            logger.warning(f"Check question evaluation skipped: {eval_err}")
 
     # 2. Build prompt with context
     if chunks:
@@ -109,11 +142,14 @@ async def stream_tutor_response(
 
     payload = {
         "system_instruction": {
-            "parts": [{"text": SYSTEM_PROMPT}]
+            "parts": [{"text": system_prompt}]
         },
         "contents": [
             {"parts": [{"text": user_prompt}]}
-        ]
+        ],
+        "generationConfig": {
+            "maxOutputTokens": 2048
+        }
     }
 
     # 3. Stream from Gemini Flash (with model fallback)
