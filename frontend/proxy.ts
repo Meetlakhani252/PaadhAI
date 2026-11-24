@@ -5,6 +5,8 @@ const isPublicRoute = createRouteMatcher([
   "/",
   "/login(.*)",
   "/signup(.*)",
+  // Tutor calls this same-origin proxy; the FastAPI app checks the bearer token.
+  "/api/backend(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, request) => {

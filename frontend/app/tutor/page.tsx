@@ -61,10 +61,8 @@ interface ProgressItem {
   last_revised: string;
 }
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "http://localhost:8000";
+// Same-origin proxy (app/api/backend) so /tutor/* is not requested from Next itself (that 404s).
+const API_BASE_URL = "/api/backend";
 
 function TutorContent() {
   const { getToken, userId } = useAuth();
